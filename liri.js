@@ -9,22 +9,22 @@ require("dotenv").config();
 
 var keys = require("./keys.js");
 var spotify = new Spotify(keys.spotify);
-var fs = require("fs";)
+var fs = require("fs");
 var Spotify = require("./spotify");
 
 //takes in user's input and parameters(e.g. movie title)
 var input = process.argv[2];
-var inputParameters = "";
+var inputParam = "";
 for(var i = 3; i < process.argv.length; i++){
-	inputParameters += " " + process.argv[i];
+	inputParam += " " + process.argv[i];
 };
 
 //spotify api call
 function spotifyIt(){	
 	var spotify = new Spotify(keys.spotify);
 	
-	if(inputParameters){
-	spotify.search({type: "track", query: inputParameters, limit: 1}, function(err, data){
+	if(inputParam){
+	spotify.search({type: "track", query: inputParam, limit: 1}, function(err, data){
 		if(err){
 			console.log(err);
 			return;
@@ -36,9 +36,10 @@ function spotifyIt(){
 			console.log('ALBUM NAME', data.tracks.items[i].album.name);
 			console.log('PREVIEW LINK', data.tracks.items[i].preview_url);
 		}	
-	});
-	} else if (!inputParameters){
-		spotify.request('https://api.spotify.com/v1/tracks/0hrBpAOgrt8RXigk83LLNE').then(function(data) {    
+  });
+  //TO DO: need to input api key within url
+	} else if (!inputParam){
+		spotify.request('https://api.spotify.com/v1/tracks/v1/audio-analysis/{id}').then(function(data) {    
 		    console.log("SONG NAME", data.name);
 		    console.log("ARTIST NAME", data.artists[0].name);
 		    console.log("ALBUM NAME", data.album.name);
@@ -51,8 +52,8 @@ function spotifyIt(){
 
 //omdb api call
 function movie(){	
-	request("http://www.omdbapi.com/?t=" + inputParameters + "&y=&plot=short&apikey=trilogy", function(error,response,body){
-		if(!error && response.statusCode===200 && inputParameters){			
+	request("http://www.omdbapi.com/?t=" + inputParam + "&y=&plot=short&apikey=trilogy", function(error,response,body){
+		if(!error && response.statusCode===200 && inputParam){			
 			console.log("Movie: " + JSON.parse(body).Title);
 			console.log("Release Year: " + JSON.parse(body).Year);
 			console.log("IMDB Rating: " + JSON.parse(body).imdbRating);
@@ -81,7 +82,7 @@ function random(){
 	fs.readFile("random.txt", "utf8", function(error, data){		
 		var newData = data.split(",");		
 		input=newData[0];	
-		inputParameters=newData[1];		
+		inputParam=newData[1];		
 		spotifyIt();
 	})
 };
@@ -101,10 +102,10 @@ var axios = require("axios");
     var fs = require("fs");
   
 // Create song constructor
-      var SONG = function() {
+    var song = function() {
 
 // have divider that acts as the space between the tv data we print in log.txt
-      var divider = "\n------------------------------------------------------------\n\n";
+    var divider = "\n------------------------------------------------------------\n\n";
   
 // findSong takes in name of a song, and searches the spotify API via URL
 
@@ -137,18 +138,18 @@ var axios = require("axios");
 
 
 
-// //keep below for my own refrence for learning
+// keep below for my own refrence for learning
 
 // var axios = require("axios");
 //     var fs = require("fs");
   
-// // Create song constructor
+//  Create song constructor
 //       var SONG = function() {
 
-// // have divider that acts as the space between the tv data we print in log.txt
+// maybe have divider that acts as the space between the tv data we print in log.txt
 //       var divider = "\n------------------------------------------------------------\n\n";
   
-// // findSong takes in name of a song, and searches the spotify API via URL
+// findSong takes in name of a song, and searches the spotify API via URL
 
 //         this.findSong = function(song) {
 //             var URL ="https://www.npmjs.com/package/node-spotify-api" + song;
