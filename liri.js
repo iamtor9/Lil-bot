@@ -1,27 +1,28 @@
 // require("dotenv").config();
 
-// var keys = require("./keys.js");
-// var fs = require("fs");
-// var request = require("request");
-// var Spotify = require("node-spotify-api");
+// const keys = require("./keys.js");
+// const fs = require("fs");
+// const request = require("request");
+// const Spotify = require("node-spotify-api");
 
 require("dotenv").config();
 
-var keys = require("./keys.js");
-var spotify = new Spotify(keys.spotify);
-var fs = require("fs");
-var Spotify = require("./spotify");
+const keys = require("./keys.js");
+const spotify = new Spotify(keys.spotify);
+const fs = require("fs");
+const Moment = require ("moment");
+const Spotify = require("./spotify");
 
 //takes in user's input and parameters(e.g. movie title)
-var input = process.argv[2];
-var inputParam = "";
-for(var i = 3; i < process.argv.length; i++){
+const input = process.argv[2];
+const inputParam = "";
+for(const i = 3; i < process.argv.length; i++){
 	inputParam += " " + process.argv[i];
 };
 
 //spotify api call
 function spotifyIt(){	
-	var spotify = new Spotify(keys.spotify);
+	const spotify = new Spotify(keys.spotify);
 	
 	if(inputParam){
 	spotify.search({type: "track", query: inputParam, limit: 1}, function(err, data){
@@ -30,7 +31,7 @@ function spotifyIt(){
 			return;
 		}	
 	
-		for (var i = 0; i < data.tracks.items.length; i++){
+		for (const i = 0; i < data.tracks.items.length; i++){
 			console.log('SONG NAME', data.tracks.items[i].name);
 			console.log('ARTIST NAME', data.tracks.items[i].artists[0].name);
 			console.log('ALBUM NAME', data.tracks.items[i].album.name);
@@ -80,7 +81,7 @@ function movie(){
 //reads the file function for calling spotifyIt function using contents of the text file as parameter
 function random(){	
 	fs.readFile("random.txt", "utf8", function(error, data){		
-		var newData = data.split(",");		
+		const newData = data.split(",");		
 		input=newData[0];	
 		inputParam=newData[1];		
 		spotifyIt();
@@ -98,28 +99,28 @@ if (input==="spotify-this-song"){
 
 
 //axios and bandsintown api
-var axios = require("axios");
-    var fs = require("fs");
+const axios = require("axios");
+
   
 // Create song constructor
-    var song = function() {
+    const song = function() {
 
 // have divider that acts as the space between the tv data we print in log.txt
-    var divider = "\n------------------------------------------------------------\n\n";
+    const divider = "\n------------------------------------------------------------\n\n";
   
 // findSong takes in name of a song, and searches the spotify API via URL
 
         this.findSong = function(song) {
-            var URL ="https://www.npmjs.com/package/node-spotify-api" + song;
+            const URL ="https://www.npmjs.com/package/node-spotify-api" + song;
         }
       }
 
     axios.get(URL).then(function(response) {
-    // Place the response.data into a variable, jsonData.
-         var jsonData = response.data;
+    // Place the response.data into a constiable, jsonData.
+         const jsonData = response.data;
   
 // showSong ends up being the string that contains songs data, then printed to the console
-     var songData = [
+     const songData = [
         "Song: " + jsonData.name,
         "Genre: " + jsonData.genre.join(", "),
         "Network: " + jsonData.network.name,
@@ -134,34 +135,36 @@ var axios = require("axios");
 
 // not sure if song/artist/band goes inside this function yet
     this.findBands = function(artist) {
-        var URL = "http://www.artists.bandsintown.com/bandsintown-api" + artist;
-
+        const URL = "http://www.artists.bandsintown.com/bandsintown-api" + artist + "/events?app_id=codingbootcamp";
+    }
+  })
+//still need moment.js!!!!!!!!
 
 
 // keep below for my own refrence for learning
 
-// var axios = require("axios");
-//     var fs = require("fs");
+// const axios = require("axios");
+//     const fs = require("fs");
   
 //  Create song constructor
-//       var SONG = function() {
+//       const SONG = function() {
 
 // maybe have divider that acts as the space between the tv data we print in log.txt
-//       var divider = "\n------------------------------------------------------------\n\n";
+//       const divider = "\n------------------------------------------------------------\n\n";
   
 // findSong takes in name of a song, and searches the spotify API via URL
 
 //         this.findSong = function(song) {
-//             var URL ="https://www.npmjs.com/package/node-spotify-api" + song;
+//             const URL ="https://www.npmjs.com/package/node-spotify-api" + song;
 //         }
 //       }
 
 //     axios.get(URL).then(function(response) {
-//     // Place the response.data into a variable, jsonData.
-//          var jsonData = response.data;
+//     // Place the response.data into a constiable, jsonData.
+//          const jsonData = response.data;
   
 // // showSong ends up being the string that contains songs data, then printed to the console
-//      var songData = [
+//      const songData = [
 //         "Song: " + jsonData.name,
 //         "Genre: " + jsonData.genre.join(", "),
 //         "Network: " + jsonData.network.name,
@@ -176,7 +179,7 @@ var axios = require("axios");
 
 // // not sure if song/artist/band goes inside this function yet
 //     this.findBands = function(artist) {
-//         var URL = "http://www.artists.bandsintown.com/bandsintown-api" + artist;
+//         const URL = "http://www.artists.bandsintown.com/bandsintown-api" + artist;
   
 // //       // Add code to search the TVMaze API for the given actor
 // //       // The API will return an array containing multiple actors, just grab the first result
@@ -188,4 +191,3 @@ var axios = require("axios");
 //      module.exports = Spotify;
 // // // Add code to print whether the user is  searching for an actor or tv show, along with the name of the actor or tv show they are searching for
 
-// // var fs = require("fs");
