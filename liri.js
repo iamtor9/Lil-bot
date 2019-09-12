@@ -8,17 +8,20 @@
 require("dotenv").config();
 
 const keys = require("./keys.js");
-const spotify = new Spotify(keys.spotify);
+
 const fs = require("fs");
 const Moment = require ("moment");
-const Spotify = require("./spotify");
+const Spotify = require("node-spotify-api");
+const axios = require("axios");
 
-//takes in user's input and parameters(e.g. movie title)
+//takes in user's input and parameters
 const input = process.argv[2];
 const inputParam = "";
 for(const i = 3; i < process.argv.length; i++){
 	inputParam += " " + process.argv[i];
 };
+
+console.log("\n\n\nYEP YUP YUP\n\n")
 
 //spotify api call
 function spotifyIt(){	
@@ -35,16 +38,17 @@ function spotifyIt(){
 			console.log('SONG NAME', data.tracks.items[i].name);
 			console.log('ARTIST NAME', data.tracks.items[i].artists[0].name);
 			console.log('ALBUM NAME', data.tracks.items[i].album.name);
-			console.log('PREVIEW LINK', data.tracks.items[i].preview_url);
+			// console.log('PREVIEW LINK', data.tracks.items[i].preview);
 		}	
   });
   //TO DO: need to input api key within url
-	} else if (!inputParam){
+  } 
+  else if (!inputParam){
 		spotify.request('https://api.spotify.com/v1/tracks/v1/audio-analysis/{id}').then(function(data) {    
 		    console.log("SONG NAME", data.name);
 		    console.log("ARTIST NAME", data.artists[0].name);
 		    console.log("ALBUM NAME", data.album.name);
-		    console.log("PREVIEW LINK", data.preview_url);   
+		    // console.log("PREVIEW LINK", data.preview_url);   
 		  }).catch(function(err) {
 		    console.error('Error occurred: ' + err); 
 		  });
@@ -91,54 +95,53 @@ function random(){
 //determine which of the functions to call & return
 if (input==="spotify-this-song"){
 	spotifyIt();	
-} else if (input==="movie-this"){
+} 
+else if (input==="movie-this"){
 	movie();	
 } else if (input==="do-what-it-says"){
 	random();
 };
 
 
-//axios and bandsintown api
-const axios = require("axios");
 
   
-// Create song constructor
-    const song = function() {
+// // Create song constructor
+//     const song = function() {
 
-// have divider that acts as the space between the tv data we print in log.txt
-    const divider = "\n------------------------------------------------------------\n\n";
+// // have divider that acts as the space between the tv data we print in log.txt
+//     const divider = "\n------------------------------------------------------------\n\n";
   
-// findSong takes in name of a song, and searches the spotify API via URL
+// // findSong takes in name of a song, and searches the spotify API via URL
 
-        this.findSong = function(song) {
-            const URL ="https://www.npmjs.com/package/node-spotify-api" + song;
-        }
-      }
+//         this.findSong = function(song) {
+//             const URL ="https://www.npmjs.com/package/node-spotify-api" + song;
+//         }
+//       }
 
-    axios.get(URL).then(function(response) {
-    // Place the response.data into a constiable, jsonData.
-         const jsonData = response.data;
+//     axios.get(URL).then(function(response) {
+//     // Place the response.data into a constiable, jsonData.
+//          const jsonData = response.data;
   
-// showSong ends up being the string that contains songs data, then printed to the console
-     const songData = [
-        "Song: " + jsonData.name,
-        "Genre: " + jsonData.genre.join(", "),
-        "Network: " + jsonData.network.name,
-        "Summary: " + jsonData.summary
-        ].join("\n\n");
+// // showSong ends up being the string that contains songs data, then printed to the console
+//      const songData = [
+//         "Song: " + jsonData.name,
+//         "Genre: " + jsonData.genre.join(", "),
+//         "Network: " + jsonData.network.name,
+//         "Summary: " + jsonData.summary
+//         ].join("\n\n");
   
- // Append showData and the divider to log.txt, print showData to the console
-    fs.appendFile("log.txt", showData + divider, function(err) {
-      if (err) throw err;
-      console.log(showData);
-    });
+//  // Append showData and the divider to log.txt, print showData to the console
+//     fs.appendFile("log.txt", showData + divider, function(err) {
+//       if (err) throw err;
+//       console.log(showData);
+//     });
 
-// not sure if song/artist/band goes inside this function yet
-    this.findBands = function(artist) {
-        const URL = "http://www.artists.bandsintown.com/bandsintown-api" + artist + "/events?app_id=codingbootcamp";
-    }
-  })
-//still need moment.js!!!!!!!!
+// // not sure if song/artist/band goes inside this function yet
+//     this.findBands = function(artist) {
+//         const URL = "http://www.artists.bandsintown.com/bandsintown-api" + artist + "/events?app_id=codingbootcamp";
+//     }
+//   })
+// //still need moment.js!!!!!!!!
 
 
 // keep below for my own refrence for learning
