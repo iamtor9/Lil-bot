@@ -9,7 +9,7 @@ var spotify = new Spotify(keys.spotify);
 
 // Create new Spotify object
 
-var spotify = new Spotify();
+
 
 // Write code here to parse command line arguments and store them into variables
 var search = process.argV[2];

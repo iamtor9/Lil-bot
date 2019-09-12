@@ -103,6 +103,7 @@ SPOTIFY_SECRET=your-spotify-secret
 
 * If someone wanted to clone your app from github and run it themselves, they would need to supply their own `.env` file for it to work.
 
+ALL DONEEE_____________
 5. Make a file called `random.txt`.
 
    * Inside of `random.txt` put the following in with no extra characters or white space:
@@ -111,6 +112,7 @@ SPOTIFY_SECRET=your-spotify-secret
 
 6. Make a JavaScript file named `liri.js`.
 
+ALL DONEEE______________
 7. At the top of the `liri.js` file, add code to read and set any environment variables with the dotenv package:
 
 ```js
