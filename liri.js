@@ -4,9 +4,11 @@ const fs = require("fs");
 
 //define requirements 
 const Spotify = require("node-spotify-api");
-const spotify = new Spotify(keys.spotify);
+const Keys = require("keys.js");
+const spotify = new Spotify("keys.spotify");
 const moment = require("moment");
 const axios = require("axios");
+
 
 //define new object methods for spotify, movie, and artist 
 let SPOTIFY = new SPOTIFY();
@@ -59,7 +61,7 @@ else if (term === "doThis") {
 };
 
 // bands in townnnnnnn function and search "this" for bands in town api
-let artista = function(); {
+let artista = function() {
   let divider = "\n------------------------\n\n";
 
   this.findArtist = function(artista) {
@@ -85,11 +87,11 @@ let artista = function(); {
     module.exports = artista;
 
 // ombd for movies function / find movie via url api
-let movie = function() {
+let moviez = function() {
 let divider = "\n--------------------------\n\n";
 
-  this.findMovie = function(movie) {
-    let URL = "http://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=trilogy";
+  this.findMovie = function(moviez) {
+    let URL = "http://www.omdbapi.com/?t=" + moviez + "&y=&plot=short&apikey=trilogy";
 
   axios.get(URL).then(function(response) {
     let jsonData = response.data;
@@ -117,11 +119,11 @@ let divider = "\n--------------------------\n\n";
   }};
 
 
-  module.exports = movie;
+  module.exports = moviez;
 
 //spottifyyyyyyyy section
 // Function for running a Spotify search then divider
-let SPOTIFY = function() {
+let SpotifyIt = function() {
 
   let divider = "\n---------------------------\n\n";
 
@@ -146,10 +148,10 @@ let SPOTIFY = function() {
   
       // append file to text log then console.log songdata
       fs.appendFile("log.txt", songData + divider, function(err) {
-          if (err) throw err;
+          if (err) delete err;
         });
     });
   }
 };
 
-module.exports = SPOTIFY;
+module.exports = SpotifyIt;
