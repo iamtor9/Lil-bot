@@ -2,18 +2,18 @@ require("dotenv").config();
 
 const fs = require("fs");
 
-//define letiable requirements for all 
+//define requirements 
 const Spotify = require("node-spotify-api");
 const spotify = new Spotify(keys.spotify);
 const moment = require("moment");
 const axios = require("axios");
 
-//create new objects for spotify, movie, and artisteach
+//define new object methods for spotify, movie, and artist 
 let SPOTIFY = new SPOTIFY();
 let movie = new movie();
 let artist = new artist();
 
-
+//process term and search arguments
 let term = process.argV[2]
 let search = process.argV.splice(3).join(" ");
 
@@ -59,13 +59,10 @@ else if (term === "doThis") {
 };
 
 // bands in townnnnnnn function and search "this" for bands in town api
-let artist = function() {
-  
-// divide for clarity / artist api search
-// use axios to get api url for data response
+let artista = function(); {
   let divider = "\n------------------------\n\n";
 
-  this.findArtist = function(artist) {
+  this.findArtist = function(artista) {
     let URL = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
     
     axios.get(URL).then(function(response) {
@@ -85,7 +82,7 @@ let artist = function() {
     });
   }};
 
-    module.exports = artist;
+    module.exports = artista;
 
 // ombd for movies function / find movie via url api
 let movie = function() {
