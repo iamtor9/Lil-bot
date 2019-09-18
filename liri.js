@@ -3,155 +3,168 @@ require("dotenv").config();
 const fs = require("fs");
 
 //define requirements 
-const Spotify = require("node-spotify-api");
 const Key = require("./keys");
-const spotify = new Spotify("keys.spotify");
+
+const Spotify = require("node-spotify-api");
+  const spotify = new Spotify({
+  id: Key.spotify.id,
+  secret: Key.spotify.secret,
+  });
+
 const moment = require("moment");
+// console.log(moment, "\n\n\nYeah\n\n\n")
 const axios = require("axios");
 
+console.log("\n\n\nFirst test\n\n\n");
 
 //define new object methods for spotify, movie, and artist 
-let SPOTIFY = new SPOTIFY();
-let movie = new movie();
-let artist = new artist();
+function spotifyIt() {
+spotify.search(
+  {
+    type: "track",
+    query: "All the small",
+    limit: 1
+  },
+  //callback function for all object methods      
+  function(junk, data) {
+    console.log(data.tracks.items)
+
+    
+
+    // append file to text log then console.log songdata
+  //   fs.appendFile("log.txt", songData + divider, function(err) {
+  //       if (err) delete err;
+  //     });
+  })
+
+};
+
+//moment function
+function moments(value) {
+  axios.get("https://rest.bandsintown.com/artists/" + value + "/events?app_id=codingbootcamp")
+  .then(function(response) {    
+    for (let i = 0; i < response.data.length; i++) {
+      let datetime = response.data[i].datetime; 
+      let dateArr = datetime.split(' '); 
+      let concertResults = "-------" +
+      "Venue Name: " + response.data[i].venue.name + 
+      "Venue Location: " + response.data[i].venue.city +
+      "Date of the Event: " + moment(dateArr[0], "MM-DD-YYYY"); 
+      console.log(concertResults);
+      }
+  })
+}
+
+// function moment() {
+//     moment.search(
+//       {
+//         type: "track",
+//         query: "All the small",
+//         limit: 1
+      // }
+
 
 //process term and search arguments
-let term = process.argV[2]
-let search = process.argV.splice(3).join(" ");
+let term = process.argv[2];
+let search = process.argv.slice(3).join(" ");
+//review .join(), .split();
+console.log(term);
+console.log(search);
 
-if (!term || !search && term === "movie"){
-    term = "movie"
-    search = "year"
-};
+if (term === "concert-this") {
 
-if (!search && term === "concert"){
-    search = "current location"
-};
+ moments(search);
+ console.log("concert")
 
-if (!search && term === "spotify"){
-    search = "play my jam"
-};
-
-if (term === "movie") {
-    movie.findMovie(search);
+} else if (term === 'spotify-this-song') {
+  //does the user's input equal 'spotify-this'?
+  console.log("spotify")
+  spotifyIt();
 }
-else if (term === "concert") {
-    artist.findArtist(search);
-}
-else if (term === "spotify") {
-    SPOTIFY.findSong(search);
-}
-else if (term === "doThis") {
 
-  fs.readFile('random.txt', 'utf8', function(junk, data){
-    let dataArr = data.split('.');
-    console.log(dataArr);
 
-        if (dataArr[0] === "spotify") {
-            SPOTIFY.findSong(dataArr[1]);
-        }
-        else if (dataArr[0] === "concert") {
-            artist.findArtist(dataArr[1]);
-        }
-        else if (dataArr[0] === "movie") {
-            movie.findMovie(dataArr[1]);
-        };
-      })
 
-};
 
-// bands in townnnnnnn function and search "this" for bands in town api
-let artista = function() {
-  let divider = "\n------------------------\n\n";
 
-  this.findArtist = function(artista) {
-    let URL = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
+
+
+
+//   fs.readFile('random.txt', 'utf8', function(junk, data){
+//     let dataArr = data.split('.');
+//     console.log(dataArr);
+
+//         if (dataArr[0] === "spotify") {
+//             SPOTIFY.findSong(dataArr[1]);
+//         }
+//         else if (dataArr[0] === "concert") {
+//             artist.findArtist(dataArr[1]);
+//         }
+//         else if (dataArr[0] === "movie") {
+//             movie.findMovie(dataArr[1]);
+//         };
+//       })
+
+// };
+
+// // bands in townnnnnnn function and search "this" for bands in town api
+// let moments = function() {
+ 
+//   this.findMoments = function(moment) {
+//     let URL = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
     
-    axios.get(URL).then(function(response) {
-      let jsonData = response.data;
+//     axios.get(URL).then(function(response) {
+//       let jsonData = response.data;
 
-// create string for artist's data (use .join)
-    let artistData = [
-        "Venue:" + jsonData[0].venue.name,
-        "Location:" + jsonData[0].venue.country + ", " + jsonData[0].venue.city,
-        "Time:" + moment(jsonData[0].dateTime).format("MM/DD/YYYY"),
-      ].join("\n\n");
+// // create string for artist's data (use .join)
+//     let momentData = [
+//         "Venue:" + jsonData[0].venue.name,
+//         "Location:" + jsonData[0].venue.country + ", " + jsonData[0].venue.city,
+//         "Time:" + moment(jsonData[0].dateTime).format("MM/DD/YYYY"),
+//       ].join("\n\n");
 
-    fs.appendFile("log.txt", artistData + divider, function(err) {
-      if (err) throw err;
-      console.log(artistData);
-      });
-    });
-  }};
-
-    module.exports = artista;
-
-// ombd for movies function / find movie via url api
-let moviez = function() {
-let divider = "\n--------------------------\n\n";
-
-  this.findMovie = function(moviez) {
-    let URL = "http://www.omdbapi.com/?t=" + moviez + "&y=&plot=short&apikey=trilogy";
-
-  axios.get(URL).then(function(response) {
-    let jsonData = response.data;
-
-// create string for movie data (use .join)
-    let movieData = [
-       "Title: " + jsonData.Title,
-       "Year: " + jsonData.Year,
-       "IMDB: " + jsonData.Ratings[0].Value,
-       "Rotten Tomatos: " + jsonData.Ratings[1].Value,
-       "Country: " + jsonData.Country,
-       "Language: " + jsonData.Language,
-       "Plot: " + jsonData.Plot,
-       "Actors: " + jsonData.Actors,
-      ].join("\n\n");
-
-      console.log(movieData);
-
-// append file to text log then console.log moviedata
-  fs.appendFile("log.txt", movieData + divider, function(err) {
-     if (err) throw err;
-      console.log(movieData);
-      });
-    });
-  }};
+//     fs.appendFile("log.txt", artistData + divider, function(err) {
+//       if (err) throw err;
+//       console.log(momentData);
+//       });
+//     });
+//   }};
 
 
-  module.exports = moviez;
 
-//spottifyyyyyyyy section
-// Function for running a Spotify search then divider
-let SpotifyIt = function() {
+// // ombd for movies function / find movie via url api
+// let movies = function() {
 
-  let divider = "\n---------------------------\n\n";
 
-  this.findSong = function(song) {
-  spotify.search(
-    {
-      type: "track",
-      query: song,
-      limit: 1
-    },
-    function(junk, data) {
-      let songs = data.tracks.items;
+//   this.findMovie = function(movies) {
+//     let URL = "http://www.omdbapi.com/?t=" + movies + "&y=&plot=short&apikey=trilogy";
 
-      let songData = [
-        "Artist name:" + songs[0].artists[0].name,
-        "Song title:" + songs[0].name,
-        "Album:" + songs[0].album.name,
-        "Preview song:" + songs[0].preview_url,
-      ].join("\n\n");
+//   axios.get(URL).then(function(response) {
+//     let jsonData = response.data;
 
-      console.log(songData);
+// // create string for movie data (use .join)
+//     let movieData = [
   
-      // append file to text log then console.log songdata
-      fs.appendFile("log.txt", songData + divider, function(err) {
-          if (err) delete err;
-        });
-    });
-  }
-};
+//        "Title: " + jsonData.Title,
+//        "Year: " + jsonData.Year,
+//        "IMDB: " + jsonData.Ratings[0].Value,
+//        "Rotten Tomatos: " + jsonData.Ratings[1].Value,
+//        "Country: " + jsonData.Country,
+//        "Language: " + jsonData.Language,
+//        "Plot: " + jsonData.Plot,
+//        "Actors: " + jsonData.Actors,
+//       ].join("\n\n");
 
-module.exports = SpotifyIt;
+//       console.log(movieData);
+
+// // append file to text log then console.log moviedata
+//   fs.appendFile("log.txt", movieData + divider, function(err) {
+//      if (err) throw err;
+//       console.log(movieData);
+//       });
+//     });
+//   }};
+
+
+
+
+
