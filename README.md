@@ -1,5 +1,12 @@
 # LIRI Bot
 
+I can't beleive those photo links worked!! woohoo!!! :)
+
+Below I have included terminal response + code in liri.js file photos!:)
+(see comments below)
+
+
+
 
 
 <br>
@@ -12,7 +19,7 @@
    <img src="images/Image 9-18-19 at 20.15 2.jpg" >
 
    concert this! - IS WORKING
-   the last Screen Shot, is causing me issues. I will be fixing the errors, and I know this may reduce my grade for this assignment, but my understanding has improved. I will need to take even more time on my own when there is not other HW due, to get a solid understanding of fixing these errors within the code. :)
+   the last Screen Shot, is causing me issues. I will be fixing the errors, and I know this may reduce my grade for this assignment, but my understanding has improved. I will need to take even more time on my own when there is not other HW due, to get a solid understanding of fixing these errors within the code for movies. :)
 
    <img src="images/Image 9-18-19 at 20.15.jpg" >
    <img src="images/Image 9-18-19 at 20.16.jpg">
