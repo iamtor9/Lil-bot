@@ -48,7 +48,8 @@ const bandChoice = function() {
 };
 console.log(Journey);
 
-//define new object methods for spotify, movie, and artist 
+////////////////////////////
+ 
 function spotifyIt() {
 spotify.search(
   {
@@ -64,11 +65,11 @@ spotify.search(
     
 
   // append file to text log then console.log songdata
-  //   fs.appendFile("log.txt", songData + divider, function(err) {
-  //       if (err) delete err;
-  //     });
+    fs.appendFile("log.txt", songData, function(err) {
+        if (err) delete err;
+      });
   })
-
+console.log(spotifyIt)
 };
 
 //moment function
@@ -164,37 +165,37 @@ if (term === "concert-this") {
 
 
 // // ombd for movies function / find movie via url api
-// let movies = function() {
+let movies = function() {
 
 
-//   this.findMovie = function(movies) {
-//     let URL = "http://www.omdbapi.com/?t=" + movies + "&y=&plot=short&apikey=trilogy";
+  this.findMovie = function(movies) {
+    let URL = "http://www.omdbapi.com/?t=" + movies + "&y=&plot=short&apikey=trilogy";
 
-//   axios.get(URL).then(function(response) {
-//     let jsonData = response.data;
+  axios.get(URL).then(function(response) {
+    let jsonData = response.data;
 
-// // create string for movie data (use .join)
-//     let movieData = [
+// create string for movie data (use .join)
+    let movieData = [
   
-//        "Title: " + jsonData.Title,
-//        "Year: " + jsonData.Year,
-//        "IMDB: " + jsonData.Ratings[0].Value,
-//        "Rotten Tomatos: " + jsonData.Ratings[1].Value,
-//        "Country: " + jsonData.Country,
-//        "Language: " + jsonData.Language,
-//        "Plot: " + jsonData.Plot,
-//        "Actors: " + jsonData.Actors,
-//       ].join("\n\n");
+       "Title: " + jsonData.Title,
+       "Year: " + jsonData.Year,
+       "IMDB: " + jsonData.Ratings[0].Value,
+       "Rotten Tomatos: " + jsonData.Ratings[1].Value,
+       "Country: " + jsonData.Country,
+       "Language: " + jsonData.Language,
+       "Plot: " + jsonData.Plot,
+       "Actors: " + jsonData.Actors,
+      ].join("\n\n");
 
-//       console.log(movieData);
+      console.log(xoxo); 
 
-// // append file to text log then console.log moviedata
-//   fs.appendFile("log.txt", movieData + divider, function(err) {
-//      if (err) throw err;
-//       console.log(movieData);
-//       });
-//     });
-//   }};
+// append file to text log then console.log moviedata
+  fs.appendFile("log.txt", movieData, function(err) {
+     if (err) throw err;
+      console.log(movieData);
+      });
+    });
+  }};
 
 
 
