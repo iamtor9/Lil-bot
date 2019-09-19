@@ -5,33 +5,65 @@ const fs = require("fs");
 //define requirements 
 const Key = require("./keys");
 
+//require spotify api
 const Spotify = require("node-spotify-api");
   const spotify = new Spotify({
   id: Key.spotify.id,
   secret: Key.spotify.secret,
   });
 
+
+const axios = require("axios");
+//console.log("\n\n\nFirst test\n\n\n");
+  
 const moment = require("moment");
 // console.log(moment, "\n\n\nYeah\n\n\n")
-const axios = require("axios");
 
-console.log("\n\n\nFirst test\n\n\n");
+/////////////////
+
+//findtour will take in the name of an artist, then searches api
+const bandChoice = function() {
+  this.findTour = function(artist) {
+  const URL = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
+
+    axios.get(URL).then(function(response) {
+    const data = response.data
+
+      for(let i = 0; i < data.length; i++) {
+      const onTour = [];
+      const tourLocation = [];
+
+      tourLocation.push(data[i].venue.city, data[i].venue.region)
+      onTour.push(data[i].venue.name, tourLocation.join(", "), moment(data[i].datetime).format("MM/DD/YYYY"));
+
+      if(artist === "Journey") {
+        console.log("Journey" + onTour.join(" "));
+      }
+      else {
+        console.log(" " + artist + onTour.join(" "));
+      }
+    }
+    });
+  };
+};
+console.log(Journey);
 
 //define new object methods for spotify, movie, and artist 
 function spotifyIt() {
 spotify.search(
   {
     type: "track",
-    query: "All the small",
+    query: "don't stop believing",
     limit: 1
   },
+
   //callback function for all object methods      
   function(junk, data) {
     console.log(data.tracks.items)
 
     
 
-    // append file to text log then console.log songdata
+  // append file to text log then console.log songdata
   //   fs.appendFile("log.txt", songData + divider, function(err) {
   //       if (err) delete err;
   //     });
@@ -40,20 +72,20 @@ spotify.search(
 };
 
 //moment function
-function moments(value) {
-  axios.get("https://rest.bandsintown.com/artists/" + value + "/events?app_id=codingbootcamp")
-  .then(function(response) {    
-    for (let i = 0; i < response.data.length; i++) {
-      let datetime = response.data[i].datetime; 
-      let dateArr = datetime.split(' '); 
-      let concertResults = "-------" +
-      "Venue Name: " + response.data[i].venue.name + 
-      "Venue Location: " + response.data[i].venue.city +
-      "Date of the Event: " + moment(dateArr[0], "MM-DD-YYYY"); 
-      console.log(concertResults);
-      }
-  })
-}
+// function moments(value) {
+//   axios.get("https://rest.bandsintown.com/artists/" + value + "/events?app_id=codingbootcamp")
+//   .then(function(response) {    
+//     for (let i = 0; i < response.data.length; i++) {
+//       let datetime = response.data[i].datetime; 
+//       let dateArr = datetime.split(' '); 
+//       let concertResults = "-------" +
+//       "Venue Name: " + response.data[i].venue.name + 
+//       "Venue Location: " + response.data[i].venue.city +
+//       "Date of the Event: " + moment(dateArr[0], "MM-DD-YYYY"); 
+//       console.log(concertResults);
+//       }
+//   })
+// }
 
 // function moment() {
 //     moment.search(

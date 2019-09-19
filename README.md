@@ -1,5 +1,28 @@
 # LIRI Bot
 
+
+
+<br>
+<br>
+<br>
+<br>
+ The terminal can take in the following commands:
+
+   spotify this song! - IS WORKING!! THANK YOU FOR EDUCATING ME JOHN! :)
+   <img src="images/Image 9-18-19 at 20.15 2.jpg" >
+
+   concert this! - IS WORKING
+   the last Screen Shot, is causing me issues. I will be fixing the errors, and I know this may reduce my grade for this assignment, but my understanding has improved. I will need to take even more time on my own when there is not other HW due, to get a solid understanding of fixing these errors within the code. :)
+
+   <img src="images/Image 9-18-19 at 20.15.jpg" >
+   <img src="images/Image 9-18-19 at 20.16.jpg">
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
 ### Overview
 
 In this assignment, you will make LIRI. LIRI is like iPhone's SIRI. However, while SIRI is a Speech Interpretation and Recognition Interface, LIRI is a _Language_ Interpretation and Recognition Interface. LIRI will be a command line node app that takes in parameters and gives you back data.
